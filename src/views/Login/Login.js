@@ -86,27 +86,29 @@ const Login = () => {
     localStorage.setItem("fortmaticConnect", "true");
   };
 
+  // const handleUauth = () => {
+  //   const uauthConnector = new UAuthConnector();
+  //   uauthConnector.uauth
+  //     .user()
+  //     .then(() => console.log("BBBBBBBbbbbb"))
+  //     .catch(() => console.log("CCCCCccccccccccc"));
+  // };
+
+  useEffect(() => {
+    uauth
+      .callbackAndActivate({ activate })
+      .then((res) => {
+        // Redirect to success page
+        console.log("res", res);
+      })
+      .catch((error) => {
+        // Redirect to failure page
+        console.log("error", error);
+      });
+  }, []);
+
   const onConnectWithUnstoppableClick = async () => {
-    console.log("AAAAAAAAAAAaaaaaa");
-
     await activate(uauth);
-
-    // const uauthConnector = new UAuthConnector();
-    // uauthConnector.uauth
-    //   .user()
-    //   .then(() => console.log("BBBBBBBbbbbb"))
-    //   .catch(() => console.log("CCCCCccccccccccc"));
-
-    // uauth
-    //   .callbackAndActivate({ activate })
-    //   .then(() => {
-    //     // Redirect to success page
-    //     console.log("BBBBBBBBBB");
-    //   })
-    //   .catch((error) => {
-    //     // Redirect to failure page
-    //     console.log("CCCCCCCCCCccc");
-    //   });
   };
 
   return (
