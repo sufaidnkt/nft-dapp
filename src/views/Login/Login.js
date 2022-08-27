@@ -1,7 +1,8 @@
 import React, { useEffect, useRef, useState } from "react";
 import MetaMaskOnboarding from "@metamask/onboarding";
 import { useWeb3React } from "@web3-react/core";
-
+import { UAuthConnector } from "@uauth/web3-react";
+import { uauth } from "../../utils/connectors";
 import {
   injected,
   walletconnect,
@@ -14,9 +15,11 @@ import MetamaskButton from "../../components/MetamaskButton/MetamaskButton";
 import WalletConnect from "../../components/WalletConnect/WalletConnect";
 import WalletLinkConnect from "../../components/WalletLinkConnect/WalletLinkConnect";
 import Fortmatic from "../../components/Fortmatic/Fortmatic";
+import Unstoppable from "../../components/Unstoppable/Unstoppable";
 
 const ONBOARD_TEXT = "Click to install MetaMask!";
 const CONNECT_TEXT = "Connect Metamask";
+const UNSTOPPABLE_CONNECT_TEXT = "Login with Unstoppable";
 
 const Login = () => {
   const [metamaskButtonText, setMetamaskButtonText] = useState(ONBOARD_TEXT);
@@ -83,6 +86,29 @@ const Login = () => {
     localStorage.setItem("fortmaticConnect", "true");
   };
 
+  const onConnectWithUnstoppableClick = async () => {
+    console.log("AAAAAAAAAAAaaaaaa");
+
+    await activate(uauth);
+
+    // const uauthConnector = new UAuthConnector();
+    // uauthConnector.uauth
+    //   .user()
+    //   .then(() => console.log("BBBBBBBbbbbb"))
+    //   .catch(() => console.log("CCCCCccccccccccc"));
+
+    // uauth
+    //   .callbackAndActivate({ activate })
+    //   .then(() => {
+    //     // Redirect to success page
+    //     console.log("BBBBBBBBBB");
+    //   })
+    //   .catch((error) => {
+    //     // Redirect to failure page
+    //     console.log("CCCCCCCCCCccc");
+    //   });
+  };
+
   return (
     <div className="wallet-wrapper">
       <MetamaskButton
@@ -94,6 +120,10 @@ const Login = () => {
       <Fortmatic
         title="Fortmatic"
         onFortmaticClick={onConnectWithFortmaticClick}
+      />
+      <Unstoppable
+        title={UNSTOPPABLE_CONNECT_TEXT}
+        onUnstoppableLogin={onConnectWithUnstoppableClick}
       />
     </div>
   );

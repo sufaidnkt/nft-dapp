@@ -2,6 +2,9 @@ import { InjectedConnector } from "@web3-react/injected-connector";
 import { WalletConnectConnector } from "@web3-react/walletconnect-connector";
 import { WalletLinkConnector } from "@web3-react/walletlink-connector";
 import { FortmaticConnector } from "@web3-react/fortmatic-connector";
+// import type {AbstractConnector} from '@web3-react/abstract-connector'
+import { UAuthConnector } from "@uauth/web3-react";
+import UAuth from "@uauth/js";
 
 import LOGO from "../assets/images/logo192.png";
 
@@ -21,7 +24,7 @@ const RPC_URLS = {
 
 // Add different connectors
 export const injected = new InjectedConnector({
-  supportedChainIds: [1, 3, 4, 5, 42, 1337], // Change according to supported Network Ids
+  supportedChainIds: 3, // Change according to supported Network Ids
 });
 
 export const walletconnect = new WalletConnectConnector({
@@ -40,4 +43,14 @@ export const walletLink = new WalletLinkConnector({
 export const fortmatic = new FortmaticConnector({
   apiKey: process.env.REACT_APP_FORTMATIC_API_KEY,
   chainId: 3,
+});
+
+export const uauth = new UAuthConnector({
+  clientID: process.env.REACT_APP_UNSTOPPABLE_CLIENT_ID,
+  redirectUri: process.env.REACT_APP_UNSTOPPABLE_REDIRECT_URI,
+  postLogoutRedirectUri:
+    process.env.REACT_APP_UNSTOPPABLE_POST_LOGOUT_REDIRECT_URI,
+  // Scope must include openid and wallet
+  scope: "openid wallet",
+  shouldLoginWithRedirect: true,
 });
